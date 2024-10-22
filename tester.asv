@@ -1,0 +1,36 @@
+UR5 = LinearUR5();
+Robot = NewRobot();
+
+% Define the Brick object
+brick = Brick('brick.ply', 1);  % Replace 'brick.ply' with the actual path to your brick model
+
+% Define new XYZ coordinates (in meters)
+new_x = 0;  % New X-coordinate
+new_y = 0;  % New Y-coordinate
+new_z = 0.25;  % New Z-coordinate
+
+x2 = -1;
+y2 = 1;
+z2 = 0;
+
+% Define a custom joint configuration
+q_deg = [-0.8, 0, 45, -90, -45, 90, 0, 0];  % Joint 1 is prismatic in meters, others in degrees
+q_deg2 = [0, 0, 0, 0, 0, 0, 0, 0];
+
+% Convert only the rotational joints to radians
+q = q_deg;  % Start with the original vector
+q(2:end-1) = deg2rad(q_deg(2:end-1));  % Convert joints 2-7 to radians (keep prismatic and 8th joint as is)
+
+q2 = q_deg2;
+q2(2:end-1) = deg2rad(q_deg2(2:end-1));
+
+% Create a homogeneous transformation matrix for the desired base position
+new_base_transform = transl(new_x, new_y, new_z) * trotz(pi);
+
+new_base_transform2 = transl(x2, y2, z2) * trotz(pi/2);
+
+% Create a new instance of LinearUR5 with the updated base transformation
+hold on;
+Robot = NewRobot(new_base_transform2);
+%UR5 = LinearUR5(new_base_transform);
+drawnow;
