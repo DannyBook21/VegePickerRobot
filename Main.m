@@ -2,9 +2,11 @@
 UR5 = LinearUR5();
 Robot = NewRobot();
 
+
 % Define the Item objects
 item1 = Item('potato.ply', 1);  % First item for LinearUR5
-item2 = Item('brick.ply', 2);  % Second item for NewRobot
+item2 = Item('knife.ply', 2);  % Second item for NewRobot
+base1 = Item('holygrail.ply', 3);
 
 % Define new XYZ coordinates (in meters)
 new_x = 0; new_y = 0; new_z = 0.25;  % For LinearUR5
@@ -26,21 +28,22 @@ new_base_transform = transl(new_x, new_y, new_z) * trotz(pi);
 new_base_transform2 = transl(x2, y2, z2) * trotz(pi/2);
 
 % Create new instances of robots with the updated base transformations
-hold on;
+
 UR5 = LinearUR5(new_base_transform);
 Robot = NewRobot(new_base_transform2);
 
 % Set animation delay to 0 for faster animations
 UR5.model.delay = 0;
 Robot.model.delay = 0;
-drawnow;
+
+
 
 % Define 8 waypoints as target positions in 3D space for each robot
 waypoints1 = [
-    0.75, 0.75, 0;   % 1st waypoint (item1 pickup)
+    0.75, 0.75, 0.04;   % 1st waypoint (item1 pickup)
     0.75, 0.75, 0.6;
     0.15, 0.75, 0.6;
-    0.15, 0.75, 0.25;   
+    0.15, 0.75, 0.29;   
     0.25, 0.5, 0.6;
     0.75, 0.75, 0.6;
     0.75, 0.75, 0.25;
@@ -52,7 +55,7 @@ waypoints2 = [
     -0.45, -0.12, 0.6;
     -0.45, -0.12, 0.6;
     0, 0.75, 0.6;
-    0, 0.75, 0.25;
+    0, 0.75, 0.27;
     0, 0.75, 0.6;
     -0.45, -0.12, 0.6;
     -0.45, -0.12, 0.25;  % Final target
@@ -72,8 +75,11 @@ item1.PlotAndLoadPly(0);
 item2.model.base = transl(waypoints2(1, :));  
 item2.PlotAndLoadPly(0);
 
+base1.model.base = transl(1.1,-0.375,-0.10)*trotz(pi);  
+base1.PlotAndLoadPly(0);
 
-lighting flat;
+
+
 % Flags for item pickups and releases
 isItem1Picked = false;
 isItem2Picked = false;
@@ -163,7 +169,7 @@ for wp = 1:size(waypoints1, 1)
         % Animate both robots
         UR5.model.animate(q);
         Robot.model.animate(q2);
-        lighting flat;
+        
 
         % Check if item1 is picked up at the first waypoint
         if wp == 1 && ~isItem1Picked
@@ -180,7 +186,7 @@ for wp = 1:size(waypoints1, 1)
         if isItem1Picked && wp <= 5
             item1.model.base = T_current1;
             item1.PlotAndLoadPly(0);
-            lighting flat;
+            
         end
 
         % Release item1 at the 5th waypoint
@@ -204,7 +210,7 @@ for wp = 1:size(waypoints1, 1)
         if isItem2Picked && wp <= 8
             item2.model.base = T_current2;
             item2.PlotAndLoadPly(0);
-            lighting flat;
+            
         end
 
         % Allow GUI events to process
