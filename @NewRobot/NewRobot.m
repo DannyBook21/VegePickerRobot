@@ -31,8 +31,8 @@ classdef NewRobot < RobotBaseClass
             link(2) = Link('d',0.15,'a',0,'alpha',pi/2,'qlim',deg2rad([-360, 360]), 'offset',0);           
             link(3) = Link('d',0,'a',-0.25,'alpha',0,'qlim', deg2rad([0, -180]), 'offset',0);            
             link(4) = Link('d',0,'a',-0.215,'alpha',0,'qlim', deg2rad([-170, 170]), 'offset', 0);                    
-            link(5) = Link('d',0.135,'a',0,'alpha',pi/2,'qlim',deg2rad([-360, 360]),'offset', 0);            
-            link(6) = Link('d',0.09,'a',0,'alpha',-pi/2,'qlim',deg2rad([-360, 360]), 'offset',0);                       
+            link(5) = Link('d',0.15,'a',0,'alpha',pi/2,'qlim',deg2rad([-360, 360]),'offset', 0);            
+            link(6) = Link('d',0.11,'a',0,'alpha',-pi/2,'qlim',deg2rad([-360, 360]), 'offset',0);                       
             link(7) = Link('d',0.1,'a',0,'alpha',0,'qlim',deg2rad([0, 0]), 'offset', 0);        
       
             link(8) = Link('d',0.1,'a',0,'alpha',deg2rad(0),'qlim',deg2rad([0, 0]), 'offset', 0); 
