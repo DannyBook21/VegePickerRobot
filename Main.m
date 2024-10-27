@@ -1,7 +1,7 @@
 %% Define the LinearUR5 and NewRobot models with the new 8th link
 UR5 = LinearUR5();
 Robot = NewRobot();
-
+light('Position', [0, 0, -20])
 %% Define the Item objects
 item1 = Item('potato.ply', 1);  % First item for LinearUR5
 item2 = Item('knife.ply', 2);  % Second item for NewRobot
