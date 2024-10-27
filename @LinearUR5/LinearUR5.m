@@ -37,6 +37,7 @@ classdef LinearUR5 < RobotBaseClass
             link(5).qlim = [-360 360]*pi/180;
             link(6).qlim = [-360 360]*pi/180;
             link(7).qlim = [-360 360]*pi/180;
+            link(8).qlim = [-360 360]*pi/180;
         
             link(3).offset = -pi/2;
             link(5).offset = -pi/2;
