@@ -7,7 +7,7 @@ function FinalAssignment()
     % Create the NewRobot model
     baseTr = eye(4); % Adjust base transformation if needed
     myRobot = NewRobot(baseTr);
-    light('position', [0, 0, -20]);
+    light('position', [0, 0, 20]);
     
     % Get the number of joints
     numJoints = length(myRobot.model.links);
@@ -233,6 +233,7 @@ function FinalAssignment()
         board = Item('board.ply', 9);
         test = Item('hand2.ply', 10);
         laser = Item('light_curtain.ply', 11);
+        estop = Item('estop.ply',12);
         
         %% Define new XYZ coordinates for each robot (in meters)
         new_x = 0; new_y = 0; new_z = 0.25;  % For LinearUR5
@@ -263,7 +264,7 @@ function FinalAssignment()
         
         %% Define waypoints as target positions in 3D space for each robot
         waypoints1 = [
-            0.60, 0.75, 0.04;   % 1st waypoint (item1 pickup)
+            0.55, 0.75, 0.04;   % 1st waypoint (item1 pickup)
             0.75, 0.75, 0.6;
             0.10, 0.75, 0.6;
             0.10, 0.75, 0.29;
@@ -318,7 +319,7 @@ function FinalAssignment()
         collision_threshold = 0.1;  % Collision distance threshold for avoiding hand object
         
         %% Set initial item positions at their respective first waypoints
-        item1.model.base = transl(0.60,0.75,0.04)*trotz(pi/2);
+        item1.model.base = transl(0.55,0.75,0.04);
         item1.PlotAndLoadPly(0);
         
         item2.model.base = transl(-0.45, -0.12, 0.275);
@@ -352,10 +353,12 @@ function FinalAssignment()
         board.PlotAndLoadPly(0);
         keyboard.model.base = transl(-0.45, 1.3, 0.25);
         keyboard.PlotAndLoadPly(0);
+        estop.model.base = transl(-0.75, 1.3, 0.25);
+        estop.PlotAndLoadPly(0);
         
         %% Set up the Central Camera for the visual servoing
         pStar = [512; 512];
-        P = [0.60;0.75;0.04];
+        P = [0.55;0.75;0.04];
         
         cam = CentralCamera('focal', 0.05, 'pixel', 10e-5, ...
             'resolution', [1024 1024], 'centre', [512 512],'name', 'UR5camera');
